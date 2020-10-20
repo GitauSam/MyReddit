@@ -1,5 +1,6 @@
 package com.zenza.myreddit.controller;
 
+import com.zenza.myreddit.dto.AuthenticationResponse;
 import com.zenza.myreddit.dto.LoginRequest;
 import com.zenza.myreddit.dto.RegisterRequest;
 import com.zenza.myreddit.service.AuthService;
@@ -28,8 +29,7 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<String> login(@RequestBody LoginRequest loginRequest) {
-        authService.signIn(loginRequest);
-        return new ResponseEntity<>("User Logged In Successfully", HttpStatus.OK);
+    public AuthenticationResponse login(@RequestBody LoginRequest loginRequest) {
+        return authService.signIn(loginRequest);
     }
 }

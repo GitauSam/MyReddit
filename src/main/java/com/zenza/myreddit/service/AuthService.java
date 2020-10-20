@@ -9,6 +9,7 @@ import com.zenza.myreddit.model.User;
 import com.zenza.myreddit.model.VerificationToken;
 import com.zenza.myreddit.repository.UserRepository;
 import com.zenza.myreddit.repository.VerificationTokenRepository;
+import com.zenza.myreddit.security.JwtProvider;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -33,6 +34,7 @@ public class AuthService {
     private final VerificationTokenRepository verificationTokenRepository;
     private final MailService mailService;
     private final AuthenticationManager authenticationManager;
+    private final JwtProvider jwtProvider;
 
     @Transactional
     public void signUp(RegisterRequest registerRequest) {
@@ -95,8 +97,8 @@ public class AuthService {
         return AuthenticationResponse
                 .builder()
                 .authenticationToken(token)
-                .refreshToken(refreshTokenService.generateRefreshToken().getToken())
-                .expiresAt(Instant.now().plusMillis(jwtProvider.getJwtExpirationInMillis()))
+//                .refreshToken(refreshTokenService.generateRefreshToken().getToken())
+//                .expiresAt(Instant.now().plusMillis(jwtProvider.getJwtExpirationInMillis()))
                 .username(loginRequest.getUsername())
                 .build();
     }
