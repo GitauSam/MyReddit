@@ -51,17 +51,17 @@ public class JwtProvider {
         }
     }
 
-    public Boolean validateToken(String jwt) {
-        parser().setSigningKey(getPublicKey()).parseClaimsJws(jwt);
-        return true;
-    }
-
     private PublicKey getPublicKey() {
         try {
             return keystore.getCertificate("springblog").getPublicKey();
         } catch (KeyStoreException e) {
             throw new SpringRedditException("Exception occured while retrieving public key from keystore");
         }
+    }
+
+    public Boolean validateToken(String jwt) {
+        parser().setSigningKey(getPublicKey()).parseClaimsJws(jwt);
+        return true;
     }
 
     public String getUsernameFromJwt(String token) {

@@ -18,14 +18,22 @@ public class SubredditController {
 
     private final SubredditService subredditService;
 
-    @PostMapping
+    @PostMapping("/create")
     public ResponseEntity<SubredditDto> createSubreddit(@RequestBody SubredditDto subredditDto) {
+        log.info("here in controller");
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(subredditService.save(subredditDto));
     }
 
-    @GetMapping
+    @GetMapping("/all")
     public ResponseEntity<List<SubredditDto>> getAllSubreddits() {
         return ResponseEntity.status(HttpStatus.OK).body(subredditService.getAll());
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<SubredditDto> getSubreddit(@PathVariable Long id) {
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(subredditService.getSubreddit(id));
     }
 }
